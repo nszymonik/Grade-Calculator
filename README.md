@@ -6,5 +6,4 @@ This program will enable students to be able to easily calculate their grade. Th
 
 # Authors (So Far)
 - Evan Baker
-- Azka Saquib
 - Mustafa Fitrat
