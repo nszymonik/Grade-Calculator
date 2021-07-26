@@ -27,20 +27,30 @@ public class GUI extends Application {
 		//TO DO
 	}
 	
+	/** 
+	 * Will call fileHandler to load the class file,
+	 * pass it onto Parsing's stringToGrade, then pass it
+	 * to the Main GUI.
+	 * 
+	 * @param s The current stage to be passed to main GUI.
+	 */
+	private void loadClass(Stage s) {
+		mainGUI(null, s);
+	}
+	
 	private void startGUI ()
 	{
-		//baseFolder = MainDirectoryInfo.getMainDirectory() + "Grade-Calculator/";
-		//fileHandler = new ReadingWriting(baseFolder);
+		baseFolder = MainDirectoryInfo.getMainDirectory() + "Grade-Calculator/";
+		fileHandler = new ReadingWriting(baseFolder);
 		
-		// MDI's getMainDirectory() has to be static for this to work
-		// baseFolder cannot be private for the constructor to work?
+		// getMainDirectory produces exception since directory not found
 		
 		// Creates the scene
 		Stage s = new Stage();
         s.setTitle("Start GUI");
         VBox vb = new VBox();
         
-        //********** Example GUI, has Header, Textfield, and Button
+        //********** Example GUI
         //HBox hb = new HBox(new Text(""));
         //TextField waitField = new TextField("0");
         //hb.getChildren().addAll(waitField);
@@ -50,38 +60,69 @@ public class GUI extends Application {
         //********** End of Example
         
         // Buttons Created
-        Button create = new Button("Create New Class");
-        Button load = new Button("Update/View Existing Class");
-        create.setOnMouseClicked(event -> createClassGUI() );
-        load.setOnMouseClicked(event -> System.out.print("Loading a class"));
+        Button createClass = new Button("Create New Class");
+        Button loadClass = new Button("Update/View Existing Class");
+        createClass.setOnMouseClicked(event -> createClassGUI(s) );
+        loadClass.setOnMouseClicked(event -> loadClass(s) ); 
+        
+        // Should create some private helper methods for buttons
         
         // All Scenes added to VBox and Scene Set
-        vb.getChildren().addAll(create, load);
+        vb.getChildren().addAll(createClass, loadClass);
         s.setScene(new Scene(vb, 520, 620));
         s.show();
 		
-		System.out.println("Ensuring everything is working.");
 	}
 	
-	private void createClassGUI ()
+	/**
+	 * Helper method that will read a file using fileHandler
+	 * and use Parsing's stringToGrades making an ArrayList of grades.
+	 * It will then call fileHandler to pass whatever info was
+	 * in the loaded file and pass it to Parsing's stringToInt() 
+	 * 
+	 * @param s Stage to be passed to main GUI.
+	 */
+	private void loadCutOffs(Stage s) {
+		mainGUI(null, s);
+	}
+	
+	/**
+	 * Helper method that will produce an empty array list of grades,
+	 * for the class, then initialize Algorithm's gradeCutoffs for the default values.
+	 * Then, it will call Parsing's intToString and pass it to writeToFile.
+	 * Then read that same file, pass to gradesToString(), then pass to writeToFile()
+	 * and finally call main GUI.
+	 * 
+	 * @param s Stage to be passed to main GUI.
+	 */
+	private void newCutOffs(Stage s) {
+		mainGUI(null, s);
+	}
+	
+	private void createClassGUI (Stage s)
 	{
 		// Rather than recreating a stage,
 		// we should pass the stage as a param
 		// and set the scene instead
 		
 		// Creates the Stage
-		Stage s = new Stage();
 		s.setTitle("Create Class GUI");
 		VBox vb = new VBox();
 		
+		Button loadCuts = new Button("Load Grade Cutoffs");
+		Button newCuts = new Button("Create New Cuttoffs");
+		
+		loadCuts.setOnMouseClicked(event -> loadCutOffs(s) );
+		newCuts.setOnMouseClicked(event -> newCutOffs(s) );
+		
 		// All Scenes added to VBox and Scene Set
+		vb.getChildren().addAll(loadCuts, newCuts);
         s.setScene(new Scene(vb, 520, 620));
         s.show();
 		
-		System.out.println("Ensuring everything is working.");
 	}
 	
-	private void mainGUI (ArrayList<Grade> grades)
+	private void mainGUI (ArrayList<Grade> grades, Stage s)
 	{
 		//TO DO
 	}

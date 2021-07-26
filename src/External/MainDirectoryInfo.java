@@ -16,7 +16,7 @@ public class MainDirectoryInfo {
 	 * Gets the main directory for all of my programs.
 	 * @return mainDirectory The main directory for all of my programs
 	 */
-	public String getMainDirectory()
+	public static String getMainDirectory()
 	{
 		//Variables
 		String mainDirectory = "";
